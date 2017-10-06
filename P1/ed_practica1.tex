@@ -82,7 +82,7 @@ código que genera los datos de entrada para situarnos en dos escenarios diferen
 \end{itemize}
 	Calcule la eficiencia empírica en ambos escenarios y compárela con el resultado del ejercicio 1.
 \clearpage
-\section{Ejercicio 5 : Dependencia de la implementacin}
+\section{Ejercicio 5 : Dependencia de la implementación}
 Considere esta otra implementación del algoritmo de la burbuja:
 \begin{lstlisting}
 	void ordenar(int *v, int n) {
@@ -106,7 +106,7 @@ y no hay que continuar.
 Considere ahora la situación del mejor caso posible en la que el vector de entrada ya está
 ordenado. ¿Cuál sería la eficiencia teórica en ese mejor caso? Muestre la gráfica con la
 eficiencia empírica y compruebe si se ajusta a la previsión.
-
+\clearpage
 Empecemos calculando la eficiencia teórica:
 \begin{itemize}
 	\item Línea 2: 1OE (asignación).
@@ -134,4 +134,20 @@ La gráfica obtenida con gnuplot es la siguiente
 \end{figure}
 Como podemos ver si se ajuta a la teórica pues la mayoría de valores
 de la gráfica se agrupan formando una recta.
+\clearpage
+\section{Ejercicio 6 : Influencia del proceso de compilación}
+Retome el ejercicio de ordenación mediante el algoritmo de la burbuja. Ahora replique
+dicho ejercicio pero previamente deberá compilar el programa indicándole al compilador
+que optimice el código. Esto se consigue así:
+\begin{verbatim}
+g++ -O3 ordenacion.cpp -o ordenacion\_optimizado
+\end{verbatim}
+Compare las curvas de eficiencia empírica para ver cómo mejora esto la eficiencia del programa.
+\clearpage
+La diferencia en eficiencia cuando se utiliza la opcion -O3 se puede ver claramente en la siguiente gráfica donde se han representado los datos obtenidos en ambos casos: 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{comparacion.png}
+\end{figure}
+Podemos ver claramente como el tiempo de ejecución se reduce considerablemente.
 \end{document}
