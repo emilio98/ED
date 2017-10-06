@@ -16,7 +16,7 @@
 \lstset{numbers=left}
 
 \title{Práctica 1}
-\author{Emilio José Hoyo \\ Stefan Parvanov}
+\author{Emilio José Hoyo Medina\\ Stefan Parvanov}
 \date{\today}
 \maketitle
 
@@ -40,18 +40,18 @@ Calcule la eficiencia teórica de este algoritmo. A continuación replique el ex
 	\item Crear un script ejecuciones\_ordenacion.csh en C-Shell que permite ejecutar varias veces el programa anterior y generar un fichero con los datos obtenidos.
 	\item Usar gnuplot para dibujar los datos obtenidos en el apartado previo
 \end{itemize}
-Los datos deben contener xtiempos de ejecución para tamaños del vector 100, 600, 1100, ...,30000. \\
+Los datos deben contener tiempos de ejecución para tamaños del vector 100, 600, 1100, ...,30000. \\
 Pruebe a dibujar superpuestas la función con la eficiencia teórica y la empírica. ¿Qué sucede? 
 \clearpage
 
-Empezamos calculando la eficiencia te\`orica:
+Empezamos calculando la eficiencia teórica:
 \begin{itemize}
-	\item Linea 2: \\ Al principio del bucle siempre tendremos 3 OE :la asignaci\`on i=0\ ; la resta  n-1 y la comparaci\`on. Al final de cada iteraci\`o tambi\`en se ejecuta 1 OE (el incremento del contador). El bucle ejecuta n-2 veces su cuerpo.
-	\item Linea 3: \\ Al igual que antes tenemos las 3 OE iniciales y 1 OE en cada iteraci\`on. El bucle se ejecuta n-i-2 veces.
-	\item Linea 4: \\ Se ejecutan 4 OE : 2 accesos a memoria, una operaci\`on aritm\`etica y una comparaci\`on.
+	\item Linea 2: \\ Al principio del bucle siempre tendremos 3 OE :la asignación i=0\ ; la resta  n-1 y la comparación. Al final de cada iteración también se ejecuta 1 OE (el incremento del contador). El bucle ejecuta n-2 veces su cuerpo.
+	\item Linea 3: \\ Al igual que antes tenemos las 3 OE iniciales y 1 OE en cada iteración. El bucle se ejecuta n-i-2 veces.
+	\item Linea 4: \\ Se ejecutan 4 OE : 2 accesos a memoria, una operación aritmética y una comparación.
 	\item Lineas 5, 6, y 7 \\  Se ejecutan 9 OE.
 \end{itemize}
-	Obtenemos el siguiente tiempo de ejecuci\`on: 
+	Obtenemos el siguiente tiempo de ejecución: 
 	\begin{equation}
 		T(n)= 3 + \sum\limits_{i=1}^{n-1}{3+1+3+\sum\limits_{j=1}^{n-i-1}{3+1+4+9}}
 	\end{equation}
