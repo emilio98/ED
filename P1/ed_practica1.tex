@@ -39,14 +39,30 @@
 \section{Condiciones de ejecución}
 Los ejercicios de esta práctica se han ejecutado en ordenadores con las siguientes prestaciones:
 \begin{itemize}
-	\item Ejericios 1 a 4:
+	\item Ejercicios 1 a 4:
 	Sistema Operativo: Mac OS 10.12.6 \\ \\
-	CPU: Intel Core i5 @1.6GHz	\\
+	CPU: Intel Core i5 @1.6GHz	\\newline
 	Memoria: 8GB ddr3 @1600Mhz	\\	
 	Disco duro: 128gb SSD		\\
-	\item Ejercicios 5 a 8:
-\end{itemize}
+      \item Ejercicios 5 a 8:
+        Sistema Operativo: Ubuntu 17.04 \\ \\
+	CPU: Intel Core i7 @2.5GHz x 4	\\
+	Memoria: 15.6GB	                \\	
+	Disco duro: 1 TB HDD		\\
+      \end{itemize}
 
+      
+\section{Opciones de compilación}
+Para todos los ejercicios se han utilizado las siguiente formato de compilación:
+
+\begin{verbatim}
+g++ <nombrefichero>.cpp -o <nombrefichero>
+\end{verbatim}
+Excepto para el 6, que se ha utilizado el siguiente:
+\begin{verbatim}
+g++ -O3 <nombrefichero>.cpp -o <nombrefichero>
+\end{verbatim}
+\clearpage
 \section{Ejercicio 1 : Ordenación de la burbuja}
 El siguiente código realiza la ordenación mediante el algoritmo de la burbuja:
 \begin{lstlisting}
@@ -73,14 +89,13 @@ Pruebe a dibujar superpuestas la función con la eficiencia teórica y la empír
 
 
 Empezamos viendo que el bucle interior se ejecuta $\frac{(n-1)(n)}{2}$ veces.
-En cada iteraci\'on tan solo se ejecutan las 4 OE de la condici\'on del if ( incremento, dos accesos a memoria y una comparaci\'on).Por tanto sabiendo que el bucle exterior se ejecuta $(n-1)$ veces y el interior se ejecuta $\frac{(n-1)(n)}{2}$ y en cada bucle exterior se ejecutan las 3OE de la condicion del bucle(decremento,comparacion,incremento) m\'as 3 OE de la inicializaci\'on del bucle interior(asignaci\'on,resta,comparacion). Id\'enticamente en el bucle interior se ejecutan 3 OE del propio bucle y 3 OE del cuerpo. Adem\'as añadimos las 3 OE de la inicializaci\'on del bucle exterior.
+En cada iteración se ejecutan las 4 OE de la condición del if ( incremento, dos accesos a memoria y una comparación) y  en el interior del bloque if siempre se ejecutarán 7 OE. El bucle exterior se ejecuta $(n-1)$ veces y el interior se ejecuta $\frac{(n-1)(n)}{2}$ y en cada bucle exterior se ejecutan las 3OE de la condicion del bucle(decremento, comparación, incremento) más 3 OE de la inicialización del bucle interior(asignación, resta, comparacion). Idénticamente en el bucle interior se ejecutan 3 OE del propio bucle y 3 OE del cuerpo. Además añadimos las 3 OE de la inicialización del bucle exterior:
 
-			Exactamente igual que antes con la \'unica diferencia que en el interior del bloque if siempre se ejecutar\'an 7 OE.
 		\begin{equation}
 			T(n) = 3 + (3+3)(n-1) + \frac{(3+3+7)(n-1)(n)}{2} = \frac{13n^2 -n -6}{2}
 		\end{equation}
 
-	Nos tenemos que fijar que tenemos que dividir el n\'umero de operaciones realizadas por la frecuencia del procesador para obtener la funci\'on de tiempo.
+	Nos tenemos que fijar que tenemos que dividir el número de operaciones realizadas por la frecuencia del procesador para obtener la función de tiempo.
 		\begin{equation}
 			T(n) = \frac{13n^2 -n -6}{2*1.6*10^9} = \frac{0.4}{10^9}n^2 - \frac{0.31}{10^9}n - \frac{1.88}{10^9} 
 		\end{equation}
@@ -88,20 +103,12 @@ En cada iteraci\'on tan solo se ejecutan las 4 OE de la condici\'on del if ( inc
 						T(n) \in O(n^2)
 		\end{equation}
 
-	Representamos los datos emp\'iricos mediante gnuplot:
+	Representamos los datos empíricos mediante gnuplot:
 	\begin{figure}[H]
-  		\caption{Eficiencia emp\'irica}
+  		\caption{Eficiencia empírica}
   		\centering
   		\includegraphics[width=0.8\textwidth]{ejer1/grafica.png}
 	\end{figure}
-	\clearpage
-	Al representar los datos empíricos frente a los teóricos obtenemos la siguiente gráfica en la que los valores teóricos se ajustan relativamente bien a los empíricos:
-	\begin{figure}[H]
-  		\caption{Eficiencia emp\'irica}
-  		\centering
-  		\includegraphics[width=0.8\textwidth]{ejer1/grafica2.png}
-	\end{figure}
-
 
 
 \clearpage
@@ -109,7 +116,6 @@ En cada iteraci\'on tan solo se ejecutan las 4 OE de la condici\'on del if ( inc
 Replique el experimento de ajuste por regresión a los resultados obtenidos en el ejercicio 1 que calculaba la eficiencia del algoritmo de ordenación de la burbuja. Para ello considere que f(x) es de la forma ax2+bx+c
 \vspace{10mm}
 
-\clearpage
 \begin{lstlisting}
 gnuplot> f(x) = a*x**2 + b*x + c
 gnuplot> fit f(x) 'tiempos_ordenacion.dat' via a,b,c
@@ -137,20 +143,19 @@ b              -0.968  1.000
 c               0.738 -0.861  1.000 
 \end{lstlisting}
 \vspace{10mm}
-	Por tanto mediante gnuplot hemos obtenido las siguiente funci\`on de ejecuci\`on:
+	Por tanto mediante gnuplot hemos obtenido las siguiente función de ejecución:
 	\begin{equation}
 		T(n) = \frac{1.39x^2}{10^9} + \frac{8.03x}{10^7} + 0.0018
-	\end{equation}
-	Representándola junto a los datos empíricos obtenemos la siguiente gráfica:
+        \end{equation}
+
+        Representando ahora conjuntamente los datos obtenidos y la función ajustada:
+        
 \begin{figure}[H]
-  	\caption{Eficiencia emp\'irica}
-  	\centering
-  		\includegraphics[width=0.8\textwidth]{ejer2/grafica.png}
+\caption{Eficiencia empírica}
+\centering
+\includegraphics[width=0.8\textwidth]{ejer2/grafica.png}
 \end{figure}
-
-
-
-
+            
 
 \clearpage
 \section{Ejercicio 3 : Problemas de precisión}
@@ -164,8 +169,8 @@ Si visualiza la eficiencia empírica debería notar algo anormal. Explíquelo y 
 \clearpage
 
 
-	Se trata de una b\'usqueda binaria. Lo que hace es buscar un valor dentro de un vector subdividiendo el vector en dos partes hasta encontrarlo. Esto solo se puede aplicar a vectores ordenados, ya que el algor\'itmo se basa en que si el valor no esta entre las cotas de un intervalo de valores del vector no puede estar en esas posiciones del vector. \\ \\
-	Para calcular la eficiencia te\'orica empezamos fijandonos que el bucle principal se ejecuta $log_2(n)$ veces. Esto es asi porque podemos dividir un n\'umero entre 2 como mucho  $log_2(n)$ veces. Antes de comenzar el bucle se ejecuta 4 OE (la asignaci\'on en linea 1, las comparaciones del inicio del bucle y el AND l\'ogico). Adem\'as dentro del bucle siempre se ejecutaran las 3 OE de la condicion y 3 OE del calculo del \'indice medio. Aplicando la regla de la suma en los bloques condicionales obtenemos que el m\'aximo son 4 OE (acceso a memoria, comparaci\'on, incremento y asignaci\'on) en la segunda sentencia else if. En total en el cuerpo del bucle se ejecutaran como mucho 10 OE. Al terminar el bucle se ejecutan 2 OE m\'as.
+	Se trata de una búsqueda binaria. Lo que hace es buscar un valor dentro de un vector subdividiendo el vector en dos partes hasta encontrarlo. Esto solo se puede aplicar a vectores ordenados, ya que el algoritmo se basa en que si el valor no esta entre las cotas de un intervalo de valores del vector no puede estar en esas posiciones del vector. \\ \\
+	Para calcular la eficiencia teórica empezamos fijandonos que el bucle principal se ejecuta $log_2(n)$ veces. Esto es asi porque podemos dividir un número entre 2 como mucho  $log_2(n)$ veces. Antes de comenzar el bucle se ejecuta 4 OE (la asignación en linea 1, las comparaciones del inicio del bucle y el AND lógico). Además dentro del bucle siempre se ejecutaran las 3 OE de la condicion y 3 OE del calculo del índice medio. Aplicando la regla de la suma en los bloques condicionales obtenemos que el máximo son 4 OE (acceso a memoria, comparación, incremento y asignación) en la segunda sentencia else if. En total en el cuerpo del bucle se ejecutaran como mucho 10 OE. Al terminar el bucle se ejecutan 2 OE más.
 	En total tenemos: 
 	\begin{equation}
 		T(n) = 4 + (3+3+4)log_2(n) + 2 = 6+ 10log_2(n)
@@ -175,17 +180,17 @@ Si visualiza la eficiencia empírica debería notar algo anormal. Explíquelo y 
 		T(n) = \frac{6+10log_2(n)}{1.6*10^9}
 	\end{equation}
 	
-	Mediante gnuplot obtenemos la siguiente eficiencia emp\'irica:
+	Mediante gnuplot obtenemos la siguiente eficiencia empírica:
 	\begin{figure}[H]
-  		\caption{Eficiencia emp\'irica}
+  		\caption{Eficiencia empírica}
   		\centering
   		\includegraphics[width=0.8\textwidth]{ejer3/grafica.png}
 	\end{figure}
 	
-	Como el rendimiento de la b\'usqueda binaria es mucho mejor que el de la ordenaci\'on de la burbuja, la ejecuci\'on para valores grandes tarda demasiado tiempo a causa de la ordenaci\'on y no podemos obtener valores fiables para trazar bien la gr\'afica.
+	Como el rendimiento de la búsqueda binaria es mucho mejor que el de la ordenación de la burbuja, la ejecución para valores grandes tarda demasiado tiempo a causa de la ordenación y no podemos obtener valores fiables para trazar bien la gráfica.
 
 \clearpage
-\section{Ejercicio 4 :}
+\section{Ejercicio 4 : Mejor y peor caso}
 Retome el ejercicio de ordenación mediante el algoritmo de la burbuja. Debe modificar el
 código que genera los datos de entrada para situarnos en dos escenarios diferentes:
 \begin{itemize}
@@ -195,19 +200,18 @@ código que genera los datos de entrada para situarnos en dos escenarios diferen
 	Calcule la eficiencia empírica en ambos escenarios y compárela con el resultado del ejercicio 1.
 \clearpage
 
-Sabemos que en general el tiempo que tarda el procesador en comparar dos enteros no depende de su valor y por tanto nos sirve con crear el vector de entrada m\'as simple. Es decir en el mejor caso el vector [0,1,2,3 ... n] y en el peor caso [n,n-1, ... ,3,2,1,0]. Adem\'as es trivial calcular la eficiencia te\'orica quitando las operaaci\'ones del bloque if obteniendo asi:
+Sabemos que en general el tiempo que tarda el procesador en comparar dos enteros no depende de su valor y por tanto nos sirve con crear el vector de entrada más simple. Es decir, en el mejor caso el vector [0,1,2,3 ... n] y en el peor caso [n,n-1, ... ,3,2,1,0]. Además es trivial calcular la eficiencia teórica en el mejor caso, quitando las operaciones de dentro del bloque if obteniendo así:
 	\begin{equation}
 			T(n) = 3 + (3+3)(n-1) + \frac{(3+3+)(n-1)(n)}{2} = 3n^2 + 3n -6
 	\end{equation}
-
-	Ejecutando la funci\'on con los diferentes tipos de datos obtenemos la siguiente gr\'afica de tiempos de ejecuci\'on de gnuplot:
+Y la eficiencia teórica en el peor caso es la ya calculada en el ejercicio 1 (suponiendo que el bloque if se ejecuta siempre).
+	Ejecutando la función en el mejor y peor caso obtenemos la siguiente gráfica de tiempos de ejecución de gnuplot:
 		\begin{figure}[H]
   		\caption{Diferentes eficiencias}
   		\centering
   		\includegraphics[width=0.8\textwidth]{ejer4/grafica.png}
 	\end{figure}
 	
-	Como vemos, en genera la diferencia suele ser despreciable.
 
 
 \clearpage
@@ -272,7 +276,8 @@ que optimice el código. Esto se consigue así:
 g++ -O3 ordenacion.cpp -o ordenacion_optimizado
 \end{verbatim}
 Compare las curvas de eficiencia empírica para ver cómo mejora esto la eficiencia del programa.
-\clearpage
+\vspace{10mm}
+
 La diferencia en eficiencia cuando se utiliza la opcion -O3 se puede ver claramente en la siguiente gráfica donde se han representado los datos obtenidos en ambos casos: 
 \begin{figure}[H]
   \caption{}
@@ -434,3 +439,4 @@ Finalmente, repetimos el cálculo de la eficiencia empírica cambiando el valor 
 \end{figure}
 Los datos de color azul corresponden al valor 10 del parámetro, y los de color verde al valor 200. El valor inicial del parámetro era 100, y por tanto podemos concluir que al aumentar el valor del parámetro UMBRAL\_MS el tiempo de ejecución aumenta y por tanto el programa es menos eficiente, y que al disminuir el valor del parámetro disminuye el tiempo de ejecución y el programa es más eficiente.
 \end{document}
+
