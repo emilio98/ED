@@ -87,6 +87,7 @@ En cada iteraci\'on tan solo se ejecutan las 4 OE de la condici\'on del if ( inc
 Replique el experimento de ajuste por regresión a los resultados obtenidos en el ejercicio 1 que calculaba la eficiencia del algoritmo de ordenación de la burbuja. Para ello considere que f(x) es de la forma ax2+bx+c
 \vspace{10mm}
 
+\clearpage
 \begin{lstlisting}
 gnuplot> f(x) = a*x**2 + b*x + c
 gnuplot> fit f(x) 'tiempos_ordenacion.dat' via a,b,c
@@ -118,6 +119,16 @@ c               0.738 -0.861  1.000
 	\begin{equation}
 		T(n) = \frac{1.39x^2}{10^9} + \frac{8.03x}{10^7} + 0.0018
 	\end{equation}
+	Representándola junto a los datos empíricos obtenemos la siguiente gráfica:
+\begin{figure}[H]
+  	\caption{Eficiencia emp\'irica}
+  	\centering
+  		\includegraphics[width=0.8\textwidth]{ejer2/grafica.png}
+\end{figure}
+
+
+
+
 
 \clearpage
 \section{Ejercicio 3 : Problemas de precisión}
