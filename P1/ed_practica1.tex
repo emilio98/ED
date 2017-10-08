@@ -39,12 +39,12 @@
 \section{Condiciones de ejecución}
 Los ejercicios de esta práctica se han ejecutado en ordenadores con las siguientes prestaciones:
 \begin{itemize}
-	\item Ejercicios 1 a 4:
+	\item Ejercicios 1 a 4:\\
 	Sistema Operativo: Mac OS 10.12.6 \\ \\
 	CPU: Intel Core i5 @1.6GHz	\\
 	Memoria: 8GB ddr3 @1600Mhz	\\	
 	Disco duro: 128gb SSD		\\
-      \item Ejercicios 5 a 8:
+      \item Ejercicios 5 a 8:\\
         Sistema Operativo: Ubuntu 17.04 \\ \\
 	CPU: Intel Core i7 @2.5GHz x 4	\\
 	Memoria: 15.6GB	                \\	
@@ -165,12 +165,13 @@ Junto con este guión se le ha suministrado un fichero ejercicio\_desc.cpp. En �
 	\item Calcule su eficiencia teórica.
 	\item Calcule su eficiencia empírica.
 \end{itemize}
-Si visualiza la eficiencia empírica debería notar algo anormal. Explíquelo y proponga una solución. Compruebe que su solución es correcta. Una vez resuelto el problema realice la regresioón para ajustar la curva teórica a la empírica.\\
+Si visualiza la eficiencia empírica debería notar algo anormal. Explíquelo y proponga una solución. Compruebe que su solución es correcta. Una vez resuelto el problema realice la regresioón para ajustar la curva teórica a la empírica.
 \clearpage
 
 
-	Se trata de una búsqueda binaria. Lo que hace es buscar un valor dentro de un vector subdividiendo el vector en dos partes hasta encontrarlo. Esto solo se puede aplicar a vectores ordenados, ya que el algoritmo se basa en que si el valor no esta entre las cotas de un intervalo de valores del vector no puede estar en esas posiciones del vector. \\ \\
-	Para calcular la eficiencia teórica empezamos fijandonos que el bucle principal se ejecuta $log_2(n)$ veces. Esto es asi porque podemos dividir un número entre 2 como mucho  $log_2(n)$ veces. Antes de comenzar el bucle se ejecuta 4 OE (la asignación en linea 1, las comparaciones del inicio del bucle y el AND lógico). Además dentro del bucle siempre se ejecutaran las 3 OE de la condicion y 3 OE del calculo del índice medio. Aplicando la regla de la suma en los bloques condicionales obtenemos que el máximo son 4 OE (acceso a memoria, comparación, incremento y asignación) en la segunda sentencia else if. En total en el cuerpo del bucle se ejecutaran como mucho 10 OE. Al terminar el bucle se ejecutan 2 OE más.
+Se trata de una búsqueda binaria. Lo que hace es buscar un valor dentro de un vector subdividiendo el vector en dos partes hasta encontrarlo. Esto solo se puede aplicar a vectores ordenados, ya que el algoritmo se basa en que si el valor no esta entre las cotas de un intervalo de valores del vector no puede estar en esas posiciones del vector. \\ \\
+
+Para calcular la eficiencia teórica empezamos fijandonos que el bucle principal se ejecuta $log_2(n)$ veces. Esto es asi porque podemos dividir un número entre 2 como mucho  $log_2(n)$ veces. Antes de comenzar el bucle se ejecuta 4 OE (la asignación en linea 1, las comparaciones del inicio del bucle y el AND lógico). Además dentro del bucle siempre se ejecutaran las 3 OE de la condicion y 3 OE del calculo del índice medio. Aplicando la regla de la suma en los bloques condicionales obtenemos que el máximo son 4 OE (acceso a memoria, comparación, incremento y asignación) en la segunda sentencia else if. En total en el cuerpo del bucle se ejecutaran como mucho 10 OE. Al terminar el bucle se ejecutan 2 OE más.
 	En total tenemos: 
 	\begin{equation}
 		T(n) = 4 + (3+3+4)log_2(n) + 2 = 6+ 10log_2(n)
@@ -179,16 +180,51 @@ Si visualiza la eficiencia empírica debería notar algo anormal. Explíquelo y 
 	\begin{equation}
 		T(n) = \frac{6+10log_2(n)}{1.6*10^9}
 	\end{equation}
-	
-	Mediante gnuplot obtenemos la siguiente eficiencia empírica:
+	Pero al usar un script para ejecutar el programa para tamaños del vector iguales a 100, 400, 700, ..., 40000 sale que todos los valores de tiempo de ejecución son 0 o muy cercanos a 0. Este error es debido a que para ejecutar el algoritmo de búsqueda binaria sobre un vector este debe estar ordenado, pero aún así el tiempo de ejecución es tan pequeño que es necesario ejecutar el algoritmo de búsqueda muchas veces para obtener un tiempo significativo mediante un bucle for. Es decir el programa final quedaría tal que así:
+        \begin{lstlisting}
+  ordenar(v,tam);
+
+  clock_t tini;    // Anotamos el tiempo de inicio
+  tini=clock();
+
+  // Algoritmo a evaluar
+  for(int i=0;i<10000;i++){
+  operacion(v,tam,tam+1,0,tam-1);
+  }
+  clock_t tfin;    // Anotamos el tiempo de finalización
+  tfin=clock();
+\end{lstlisting}
+
+	Ahora si ejecutamos el programa mediante un script para los tamaños del vector antes mencionados y mediante gnuplot obtenemos la siguiente gráfica de la eficiencia empírica:
 	\begin{figure}[H]
   		\caption{Eficiencia empírica}
   		\centering
   		\includegraphics[width=0.8\textwidth]{ejer3/grafica.png}
 	\end{figure}
 	
-	Como el rendimiento de la búsqueda binaria es mucho mejor que el de la ordenación de la burbuja, la ejecución para valores grandes tarda demasiado tiempo a causa de la ordenación y no podemos obtener valores fiables para trazar bien la gráfica.
+        Usando fit de gnuplot para una función del tipo:
+        \[
+          f(x)=a*log_{2}x+b
+        \]
+        obtenemos los siguientes coeficientes:
+\begin{verbatim}
 
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = 1.05374e-05      +/- 3.484e-06    (33.06%)
+b               = 0.000484692      +/- 4.845e-05    (9.996%)
+
+correlation matrix of the fit parameters:
+                a      b      
+a               1.000 
+b              -0.995  1.000 
+\end{verbatim}
+        Y representando conjuntamente los datos y la función obtenemos la siguiente gráfica:
+        \begin{figure}[H]
+  		\caption{Eficiencia empírica}
+  		\centering
+  		\includegraphics[width=0.8\textwidth]{ejer3/grafica2.png}
+	\end{figure}
 \clearpage
 \section{Ejercicio 4 : Mejor y peor caso}
 Retome el ejercicio de ordenación mediante el algoritmo de la burbuja. Debe modificar el
