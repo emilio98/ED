@@ -63,13 +63,14 @@ ordenar(v,tam);
   tini=clock();
 
   // Algoritmo a evaluar
+  for(int i=0;i<10000;i++)
   operacion(v,tam,tam+1,0,tam-1);
   
   clock_t tfin;    // Anotamos el tiempo de finalización
   tfin=clock();
 
   // Mostramos resultados
-  cout << tam << "\t" << (tfin-tini)/(double)CLOCKS_PER_SEC << endl;
+  cout << tam << "\t" << ((tfin-tini)/(double)CLOCKS_PER_SEC)/10000 << endl;
   
   delete [] v;     // Liberamos memoria dinámica
 }
