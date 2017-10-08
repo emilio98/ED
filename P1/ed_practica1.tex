@@ -248,7 +248,7 @@ Y la eficiencia teórica en el peor caso es la ya calculada en el ejercicio 1 (s
   		\includegraphics[width=0.8\textwidth]{ejer4/grafica.png}
 	\end{figure}
 	
-
+En el caso del peor caso (vector ordenado al revés) el tiempo de ejecución es menor que en el vector aleatorio gracias al predictor de saltos. Este mecanismo de la CPU permite al procesador tomar decisiones en el caso de un salto condicional basándose en las ejecuciones anteriores del mismo salto. Como en el nuestro caso en el bucle if siempre se incumple la condición el procesador tardará menos tiempo en ejecutar el salto al bucle, que es una operación bastante costosa, tomando siempre el caso de que no se cumpla. En el caso de que se cumpliera la condición habría una penalización y tardará más, pero en nuestro caso eso nunca pasa.
 
 \clearpage
 \section{Ejercicio 5 : Dependencia de la implementación}
