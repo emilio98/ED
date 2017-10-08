@@ -70,7 +70,7 @@ ordenar(v,tam);
   tfin=clock();
 
   // Mostramos resultados
-  cout << tam << "\t" << ((tfin-tini)/(double)CLOCKS_PER_SEC)/10000 << endl;
+  cout << tam << "\t" << ((tfin-tini)/(double)CLOCKS_PER_SEC) << endl;
   
   delete [] v;     // Liberamos memoria dinámica
 }
