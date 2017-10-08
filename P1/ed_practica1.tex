@@ -11,10 +11,23 @@
 \usepackage{listings}
 
 \begin{document}
-
-\lstset{language=C++}
 \lstset{numbers=left}
-
+\lstset{
+  language=C++,
+  breaklines=true,
+  literate={á}{{\'a}}1
+        {ã}{{\~a}}1
+        {é}{{\'e}}1
+        {ó}{{\'o}}1
+        {í}{{\'i}}1
+        {ñ}{{\~n}}1
+        {¡}{{!`}}1
+        {¿}{{?`}}1
+        {ú}{{\'u}}1
+        {Í}{{\'I}}1
+        {Ó}{{\'O}}1
+      }
+      
 \title{Práctica 1}
 \author{Emilio José Hoyo Medina\\ Stefan Parvanov}
 \date{\today}
@@ -209,7 +222,7 @@ Obtenemos el siguiente tiempo de ejecución en el mejor de los casos
   T(n)= 1OE(2) + 4OE&(3) + 1OE(4) + 4OE(5) + (( 3OE(6) + 1OE(5) +
   3OE(5) )*(n-1))\\& + 1OE(3) + 3OE(3) = 14+7n-7 = 7n+7
 \end{align*}
-La gráfica obtenida con gnuplot es la siguiente
+La gráfica obtenida con gnuplot es la siguiente, con tiempos de ejecución para tamaños del vector tomados de 500000 en 500000 empezando en n=1000000 y acabando en n=30000000:
 \begin{figure}[H]
   \caption{Eficiencia en el mejor caso}
   \centering
@@ -223,14 +236,168 @@ Retome el ejercicio de ordenación mediante el algoritmo de la burbuja. Ahora re
 dicho ejercicio pero previamente deberá compilar el programa indicándole al compilador
 que optimice el código. Esto se consigue así:
 \begin{verbatim}
-g++ -O3 ordenacion.cpp -o ordenacion\_optimizado
+g++ -O3 ordenacion.cpp -o ordenacion_optimizado
 \end{verbatim}
 Compare las curvas de eficiencia empírica para ver cómo mejora esto la eficiencia del programa.
 \clearpage
 La diferencia en eficiencia cuando se utiliza la opcion -O3 se puede ver claramente en la siguiente gráfica donde se han representado los datos obtenidos en ambos casos: 
 \begin{figure}[H]
+  \caption{}
   \centering
   \includegraphics[width=0.8\textwidth]{comparacion.png}
 \end{figure}
-Podemos ver claramente como el tiempo de ejecución se reduce considerablemente.
+Se han tomado tiempos de ejecución para tamaños del vector 100, 600, 1100, ..., 30000. Podemos ver claramente como el tiempo de ejecución se reduce considerablemente.
+\clearpage
+\section{Ejercicio 7 : Multiplicación matricial}
+Implemente un programa que realice la multiplicación de dos matrices bidimensionales.
+Realice un análisis completo de la eficiencia tal y como ha hecho en ejercicios anteriores de este guión.
+\clearpage
+
+El programa a implementar quedaría tal que así:
+\begin{lstlisting}
+#include <iostream>
+#include <ctime>    
+#include <cstdlib>  
+
+using namespace std;
+
+void sintaxis()
+{
+  cerr << ``Sintaxis:'' << endl;
+  cerr << ``TAM:Tamaño de la matriz (>0)'' << endl;
+  cerr << ``VMAX: Valor maximo (>0)'' << endl;
+  cerr << ``Se genera una matriz de tamaño TAM x TAM con elementos aleatorios en [0,VMAX['' << endl;
+  exit(EXIT_FAILURE);
+}
+
+int main(int argc, char * argv[])
+{
+  if (argc!=3)
+    sintaxis();
+  int tam=atoi(argv[1]);     
+  int vmax=atoi(argv[2]);    
+  if (tam<=0 || vmax<=0)
+    sintaxis();
+  
+  // Generación de la matriz aleatoria
+  const int MAXIMO=800;
+  int v[MAXIMO][MAXIMO],u[MAXIMO][MAXIMO], w[MAXIMO][MAXIMO];
+  srand(time(0));            
+  for (int i=0; i<tam; i++){
+    for(int j=0;j<tam;j++){
+      v[i][j]=rand() % vmax;  
+      u[i][j]=rand() % vmax;
+    }
+  }
+  int suma=0;
+  clock_t tini;    
+  tini=clock();
+  
+  for(int i=0; i<tam; i++){
+    for(int j=0; j<tam; j++){
+      for(int k=0; k<tam; k++){
+         suma=suma+(v[i][k]*u[k][j]);
+      }
+      w[i][j]=suma;
+      suma=0;
+    }
+  }
+
+  clock_t tfin;    
+  tfin=clock();
+
+  cout << tam << "\t" << (tfin-tini)/(double)CLOCKS_PER_SEC << endl;
+}
+\end{lstlisting}
+\clearpage
+Vamos a centrarnos en el algoritmo de multiplicación de matrices:
+\begin{lstlisting}
+  for(int i=0; i<tam; i++){
+    for(int j=0; j<tam; j++){
+      for(int k=0; k<tam; k++){
+         suma=suma+(v[i][k]*u[k][j]);
+      }
+      w[i][j]=suma;
+      suma=0;
+    }
+  }
+\end{lstlisting}
+En cuanto a la eficiencia teórica, al tiempo de ejecución le corresponde la siguiente ecuación (con el número de línea al que corresponde cada conjunto de OEs entre paréntesis), donde n (=tam) es el número de filas y columnas de la matriz:
+\begin{align*}
+  T(n)= 2OE(1)+&2OE(2)+2OE(3)+[[[7OE(4)+2OE(3)]*n+3OE(6)+1OE(7)+\\&2OE(2)]*n+2OE(1)]*n = 9n^{3}+6n^{2}+2n+6
+\end{align*}
+
+Ahora pasamos a calcular la eficiencia empírica. Compilamos el programa y lo ejecutamos utilizando un script para n= 100, 120, 140, ..., 760, 780, 800, guardando los tiempos de ejecución obtenidos en un archivo tiempos\_matriz.dat. Obtenemos con gnuplot la siguiente gráfica:
+\begin{figure}[H]
+  \caption{Eficiencia en el producto de matrices nxn}
+  \centering
+  \includegraphics[width=0.8\textwidth]{graficaefic.png}
+\end{figure}
+Hemos de realizar un ajuste con una función de la forma:
+\[
+  f(x)=ax^{3}+bx^{2}+cx+d
+\]
+obtenemos los siguientes coeficientes usando la función fit de gnuplot:
+\begin{verbatim}
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = 3.30848e-09      +/- 1.662e-10    (5.023%)
+b               = -1.78549e-07     +/- 2.213e-07    (123.9%)
+c               = 5.22417e-05      +/- 8.836e-05    (169.1%)
+d               = -0.00238964      +/- 0.0102       (426.8%)
+
+correlation matrix of the fit parameters:
+                a      b      c      d      
+a               1.000 
+b              -0.991  1.000 
+c               0.954 -0.985  1.000 
+d              -0.862  0.913 -0.965  1.000 
+\end{verbatim}
+Ahora representamos conjuntamente f(x) y los datos obtenidos empíricamente y vemos que el ajuste es bastante bueno, es decir, la eficiencia empírica y la teórica se corresponden:
+\begin{figure}[H]
+  \caption{Comparación entre eficiencia empírica y teórica}
+  \centering
+  \includegraphics[width=0.8\textwidth]{graficafit.png}
+\end{figure}
+\clearpage
+\section{Ejercicio 8 : Ordenación por Mezcla}
+Estudie el código del algoritmo recursivo disponible en el fichero mergesort.cpp. En él, se integran dos algoritmos de ordenación: inserción y mezcla (o mergesort). El parámetro UMBRAL\_MS condiciona el tamaño mínimo del vector para utilizar el algoritmo de inserción en vez de seguir aplicando de forma recursiva el mergesort. Como ya habrá estudiado, la eficiencia teórica del mergesort es n log(n). Realice un análisis de la
+eficiencia empírica y haga el ajuste de ambas curvas. Incluya también, para este caso, un pequeño estudio de cómo afecta el parámetro UMBRAL\_MS a la eficiencia del algoritmo. Para ello, pruebe distintos valores del mismo y analice los resultados obtenidos.
+\clearpage
+Para medir la eficiencia empírica compilamos el programa mergesort.cpp y lo ejecutamos mediante un script para n = 100000, 150000, 200000, ..., 3000000 guardando en un archivo tiempo\_mezcla.dat los tiempos de ejecución obtenidos. Mediante gnuplot obtenemos la siguiente gráfica:
+\begin{figure}[H]
+  \caption{Cálculo eficiencia empírica algoritmo de mezcla-inserción}
+  \centering
+  \includegraphics[width=0.8\textwidth]{mergeemp.png}
+\end{figure}
+Ajustamos con la función fit de gnuplot los datos con una función de la forma:
+\[
+  f(x) = a x log(x) + b
+\]
+obteniendo los siguientes valores para a y b:
+\begin{verbatim}
+Final set of parameters            Asymptotic Standard Error
+=======================            ==========================
+a               = 1.78633e-08      +/- 1.703e-10    (0.9534%)
+b               = -0.000175894     +/- 0.004319     (2455%)
+
+correlation matrix of the fit parameters:
+                a      b      
+a               1.000 
+b              -0.867  1.000 
+\end{verbatim}
+\clearpage
+Y obteniendose la siguiente gráfica al representar los datos empíricos y la función ajustada conjuntamente:
+\begin{figure}[H]
+  \caption{}
+  \centering
+  \includegraphics[width=0.8\textwidth]{mergegrafica.png}
+\end{figure}
+Finalmente, repetimos el cálculo de la eficiencia empírica cambiando el valor del parámetro UMBRAL\_MS. Primero lo establecemos en 200, y almacenamos los datos en un archivo tiempo\_mezcla2.dat. Luego lo establecemos en 10 y almacenamos los datos en tiempo\_mezcla3.dat. Al representar los tres conjuntos de datos obtenidos se obtiene la siguiente gráfica:
+\begin{figure}[H]
+  \caption{Comparación al cambiar UMBRAL\_MS}
+  \centering
+  \includegraphics[width=0.8\textwidth]{mergecomp.png}
+\end{figure}
+Los datos de color azul corresponden al valor 10 del parámetro, y los de color verde al valor 200. El valor inicial del parámetro era 100, y por tanto podemos concluir que al aumentar el valor del parámetro UMBRAL\_MS el tiempo de ejecución aumenta y por tanto el programa es menos eficiente, y que al disminuir el valor del parámetro disminuye el tiempo de ejecución y el programa es más eficiente.
 \end{document}
