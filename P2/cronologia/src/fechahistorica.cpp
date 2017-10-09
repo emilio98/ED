@@ -1,6 +1,7 @@
 #include <fechahistorica.h>
 #include <iostream>
-
+#include <fstream>
+#include <cstring>
 using namespace std;
 
 void FechaHistorica::resize(int tam){
@@ -69,8 +70,20 @@ void FechaHistorica::addsucesos(string *suc, int n){
 		
 		
 istream &operator>>(istream &i, const FechaHistorica &f){
-	i >> f.anio;
-	
+	char s[500];
+	char aux;
+	string suc;
+	i.getline(s,5,'#');
+	f.anio=atoi(s);
+	int nsucaniadidos=0;
+	i.getline(s,500);
+	for(int j=0;j<strlen(s)&& aux!='\n'&& i.get(aux) ;j++){
+		if(aux!='#'&&)
+			suc.insert(nsucaniadidos+j,1,aux);
+		else{
+			f.addsuceso(suc);
+			nsucaniadidos++;
+		}
 
 ostream &operator>>(istream &i, const FechaHistorica &f){
 
