@@ -44,6 +44,21 @@ FechaHistorica::~FechaHistorica(){
 	delete[]sucesos;
 	sucesos=0;
 }
+
+FechaHistorica &FechaHistorica::operator=(const FechaHistorica &f){
+	anio=f.anio;
+	numsucesos=f.numsucesos;
+	if(tamstring>0)
+		delete[]sucesos;
+	if(f.tamstring>0){
+	sucesos=new string[f.tamstring];
+	for(int i=0;i<numsucesos;i++)
+		sucesos[i]=f.sucesos[i];
+	}
+	else
+		sucesos=0;
+	tamstring=f.tamstring;
+}
 int FechaHistorica::getnumsucesos()const{return numsucesos;}
 
 void FechaHistorica::setanio(int a){
