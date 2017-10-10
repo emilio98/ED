@@ -58,6 +58,7 @@ FechaHistorica &FechaHistorica::operator=(const FechaHistorica &f){
 	else
 		sucesos=0;
 	tamstring=f.tamstring;
+	return *this;
 }
 int FechaHistorica::getnumsucesos()const{return numsucesos;}
 
