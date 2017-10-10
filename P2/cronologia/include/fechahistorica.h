@@ -28,7 +28,7 @@ int getnumsucesos()const;
 void addsuceso(string suc);
 void addsucesos(string *suc, int n);
 		
-		
+FechaHistorica &operator=(const FechaHistorica &f);
 friend istream &operator>>(istream &is, FechaHistorica &f);
 	
 
