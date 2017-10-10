@@ -1,7 +1,4 @@
-#include <fechahistorica.h>
-#include <iostream>
-#include <fstream>
-#include <cstring>
+#include "fechahistorica.h"
 using namespace std;
 
 void FechaHistorica::resize(int tam){
@@ -37,7 +34,7 @@ FechaHistorica::FechaHistorica(const FechaHistorica &f){
 	if(tamstring>0){
 		sucesos=new string[tamstring];
 		for(int i=0;i<numsucesos;i++)
-			sucesos[i]=f.sucesos[i]
+			sucesos[i]=f.sucesos[i];
 	}
 	else 
 	sucesos=0;
@@ -47,11 +44,12 @@ FechaHistorica::~FechaHistorica(){
 	delete[]sucesos;
 	sucesos=0;
 }
+int FechaHistorica::getnumsucesos()const{return numsucesos;}
 
 void FechaHistorica::setanio(int a){
 	anio=a;
 }
-int FechaHistorica::getanio() const{return anio}
+int FechaHistorica::getanio() const{return anio;}
 
 void FechaHistorica::addsuceso(string suc){
 	if(numsucesos==tamstring)
@@ -69,13 +67,13 @@ void FechaHistorica::addsucesos(string *suc, int n){
 }		
 		
 		
-istream &operator>>(istream &is, const FechaHistorica &f){
+istream &operator>>(istream &is, FechaHistorica &f){
 	char s[500];
 	char aux[100];
 	string suc;
 	is.getline(s,5,'#');
 	f.anio=atoi(s);
-	is >> s;
+	is.getline(s,500,'\n');
 	int k=0;
 	int j=0;
 
@@ -92,21 +90,22 @@ istream &operator>>(istream &is, const FechaHistorica &f){
 		}
 		j++;
 	}
-	aux[k]='/0';
+	aux[k]='\0';
 	suc=aux;
 	f.addsuceso(suc);
 	return is;
 }
 		
 
-ostream &operator>>(ostream &o, const FechaHistorica &f){
+ostream &operator<<(ostream &o, const FechaHistorica &f){
 	o << f.anio;
 	o << '#';
-	for(int i=0;i<numsucesos;i++){
+	for(int i=0;i<f.numsucesos;i++){
 	o << f.sucesos[i];
-	if(i<numsucesos-1)
+	if(i<f.numsucesos-1)
 		o << '#';
 	}
+	o<<'\n';
 	return o;
 }
 
