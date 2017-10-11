@@ -6,6 +6,8 @@ using namespace std;
 
 int main(int argc, char * argv[]){
 
+
+
   if (argc!=2){
       cout<<"Dime el nombre del fichero con la cronologia"<<endl;
       return 0;
@@ -19,7 +21,8 @@ int main(int argc, char * argv[]){
    
    Cronologia mi_cronologia;
    f>>mi_cronologia; //Cargamos en memoria la cronología.
-   
+
+   std::cout << "Hello" << std::endl;
 
    /* Exhibir aquí la funcionalidad programada para el TDA Cronologia / TDA FechaHistorica */ 
 
@@ -29,6 +32,4 @@ int main(int argc, char * argv[]){
    // - Obtener la (sub)cronología de eventos históricos asociados a una palabra clave. Ejemplo: la cronología de eventos asociados a "Einstein"
    // - Operadores sobre cronologías, ejemplo: Unión de dos cronologías (la cronología resultante debería estar ordenada)
    // - Cualquier otra funcionalidad que consideréis de interés
-
-
 }

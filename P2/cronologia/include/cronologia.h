@@ -1,5 +1,7 @@
 #pragma once
 
+#include<iostream>
+#include<fstream>
 #include<string>
 #include"fechahistorica.h"
 
@@ -9,6 +11,7 @@ class Cronologia
     int numFechas;
     int tamFechas;
     FechaHistorica *fechas;
+    //bool badLoad = false;
 
     void resize(int num);
     void release();
@@ -20,15 +23,19 @@ public:
     ~Cronologia();
 
     bool add(const FechaHistorica &fecha);
-    bool add(const FechaHistorica (&fechas)[],int numFechas);
+    void add(const FechaHistorica (&fechas)[],int numFechas);
 
-
-    int     fechaDeSuceso(std::string nombre);
-    string* sucesosDeFecha(int anio);
+    int get(std::string suceso);
+    std::string* get(int anio,int &numSucesos);
 
     Cronologia& operator=(const Cronologia &otro);
-    friend ostream& operator>>(ostream &i,const Cronologia &self);
+    
+    friend ifstream& operator>>(ifstream &is, Cronologia &f);
+    friend ofstream& operator<<(ofstream &o, const Cronologia &f);
 };
+
+ifstream& operator>>(ifstream &is,Cronologia &cr);
+ofstream& operator<<(ofstream &os,const Cronologia &cr);
 
 
 

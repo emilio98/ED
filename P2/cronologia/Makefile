@@ -2,9 +2,8 @@ SRC = src
 INC = include
 OBJ = obj
 BIN = bin
-CXX = g++
-CPPFLAGS = -Wall -g  -I$(INC) -c
-
+CXX = g++ 
+CPPFLAGS = -Wall -g -std=c++14  -I./$(INC) 
 
 all: $(BIN)/pruebacronologia
 # ************ Generación de documentación ******************
@@ -13,7 +12,8 @@ documentacion:
 
 	
 # ************ Compilación de módulos ************
-$(BIN)/pruebacronologia:
+$(BIN)/pruebacronologia: $(SRC)/cronologia.cpp $(SRC)/fechahistorica.cpp $(SRC)/pruebacronologia.cpp
+	$(CXX) $(CPPFLAGS) -o $@ $^
 
 
 

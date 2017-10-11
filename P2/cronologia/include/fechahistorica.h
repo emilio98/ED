@@ -30,13 +30,9 @@ void addsucesos(string *suc, int n);
 		
 FechaHistorica &operator=(const FechaHistorica &f);
 friend istream &operator>>(istream &is, FechaHistorica &f);
-	
-
 friend ostream &operator<<(ostream &o, const FechaHistorica &f);
 };
 
 istream &operator>>(istream &is, FechaHistorica &f);
-	
-
 ostream &operator<<(ostream &o, const FechaHistorica &f);
 #endif

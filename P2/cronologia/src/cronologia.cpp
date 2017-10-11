@@ -1,22 +1,28 @@
 #include"cronologia.h"
 
 
-void Cronologia::release()
-{
+void Cronologia::release(){
 /*    for(int i=0; i>numFechas;i++)
         delete fechas[i];
 */
-    delete[] fechas;
+    if(fechas)
+        delete[] fechas;
 }
-FechaHistorica* Cronologia::buscar(int anio)
-{
+void Cronologia::resize(int tam){
+    assert(tam>0);
+    tamFechas = tam;
+    FechaHistorica *tmp = new FechaHistorica[tamFechas];
+    for(int i=0;i<numFechas;i++)
+        tmp[i] = fechas[i];
+    this->release();
+    this->fechas = tmp;
+}
+FechaHistorica* Cronologia::buscar(int anio){
     for(int i=0;i<numFechas;i++)
         if(fechas[i].getanio() == anio)
             return (fechas+i);
     return nullptr;
 }
-
-
 
 Cronologia::Cronologia() : numFechas(0),tamFechas(0),fechas(nullptr) {}
 Cronologia::~Cronologia() {
@@ -30,8 +36,7 @@ Cronologia::Cronologia(FechaHistorica *fechas,int numFechas) {
     for(int i=0;i<numFechas;i++)
         this->fechas[i] = fechas[i];
 }
-Cronologia::Cronologia(const Cronologia &otro)
-{
+Cronologia::Cronologia(const Cronologia &otro){
     assert(otro.numFechas >0);
     release();
     this->numFechas = otro.numFechas;
@@ -39,24 +44,47 @@ Cronologia::Cronologia(const Cronologia &otro)
     for(int i=0;i<this->numFechas;i++)
         this->fechas[i] = otro.fechas[i];
 }
-Cronologia& Cronologia::operator=(const Cronologia &otro)
-{
+Cronologia& Cronologia::operator=(const Cronologia &otro){
     assert(otro.numFechas >0);    
     release();
     this->numFechas = otro.numFechas;
     this->fechas = new FechaHistorica[this->numFechas];
     for(int i=0;i<this->numFechas;i++)
         this->fechas[i] = otro.fechas[i];
+    return *this;
 }
 
-bool Cronologia::add(const FechaHistorica &nueva)
-{
+bool Cronologia::add(const FechaHistorica &nueva){
     FechaHistorica *fecha = buscar(nueva.getanio());
     if(fecha)
         return false;
+    if(numFechas+1 > tamFechas)
+        resize(tamFechas*2+1);
+    fechas[numFechas++] = nueva;
+    return true;
 }
-bool Cronologia::add(const FechaHistorica (&fechas)[],int numFechas)
-{
-
+void Cronologia::add(const FechaHistorica (&fechas)[],int numFechas){
+    assert(numFechas > 0);
+    for(int i=0;i<numFechas;i++)
+        this->add(fechas[i]);
+}
+int Cronologia::get(std::string suceso){
+    // Falta por implementar metodos get de fecha_historica
+    return -1;
+}
+std::string* get(int anio,int &numsucesos){
+    return nullptr;
 }
 
+ofstream& operator<< (ofstream &os, const Cronologia &cr){
+    int i = 0;
+    while ( i<cr.numFechas && os << cr.fechas[i])
+        i++;
+    return os;
+}
+ifstream& operator>> (ifstream &is, Cronologia &cr){
+    FechaHistorica fecha;
+    while( (is.eof() != true ) && (is >> fecha))
+        cr.add(fecha);
+    return is;
+}
