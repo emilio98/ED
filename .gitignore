@@ -1,3 +1,11 @@
 *.log
 *.aux
 .DS_Store
+P2/cronologia/.vscode/launch.json
+P2/cronologia/.vscode/settings.json
+P2/cronologia/.vscode/tasks.json
+P2/cronologia/bin/exe
+P2/cronologia/bin/pruebacronologia
+P2/cronologia/bin/pruebacronologia.dSYM/Contents/Resources/DWARF/pruebacronologia
+P2/cronologia/bin/pruebacronologia.dSYM/Contents/Info.plist
+P2/cronologia/src/main.cpp
