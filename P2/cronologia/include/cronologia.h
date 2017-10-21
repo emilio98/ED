@@ -8,6 +8,7 @@
 
 class Cronologia
 {
+public:
     int numFechas;
     int tamFechas;
     FechaHistorica *fechas;
@@ -16,14 +17,14 @@ class Cronologia
     void resize(int num);
     void release();
     FechaHistorica* buscar(int anio);
-public:
+
     Cronologia();
     Cronologia(FechaHistorica *fechas,int numFechas);
     Cronologia(const Cronologia &otro);
     ~Cronologia();
 
     bool add(const FechaHistorica &fecha);
-    void add(const FechaHistorica (&fechas)[],int numFechas);
+    void add(const FechaHistorica *fechasn,int numFechas);
 
     int get(std::string suceso);
     std::string* get(int anio,int &numSucesos);
@@ -31,11 +32,11 @@ public:
     Cronologia& operator=(const Cronologia &otro);
     
     friend ifstream& operator>>(ifstream &is, Cronologia &f);
-    friend ofstream& operator<<(ofstream &o, const Cronologia &f);
+    friend ostream& operator<<(ostream &os, const Cronologia &f);
 };
 
 ifstream& operator>>(ifstream &is,Cronologia &cr);
-ofstream& operator<<(ofstream &os,const Cronologia &cr);
+ostream& operator<<(ostream &os,const Cronologia &cr);
 
 
 

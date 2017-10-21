@@ -32,4 +32,6 @@ int main(int argc, char * argv[]){
    // - Obtener la (sub)cronología de eventos históricos asociados a una palabra clave. Ejemplo: la cronología de eventos asociados a "Einstein"
    // - Operadores sobre cronologías, ejemplo: Unión de dos cronologías (la cronología resultante debería estar ordenada)
    // - Cualquier otra funcionalidad que consideréis de interés
+   cout << mi_cronologia ;
+   f.close();
 }

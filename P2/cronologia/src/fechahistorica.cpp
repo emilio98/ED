@@ -1,4 +1,5 @@
 #include "fechahistorica.h"
+#include <sstream>
 using namespace std;
 
 void FechaHistorica::resize(int tam){
@@ -15,7 +16,7 @@ void FechaHistorica::resize(int tam){
 	tamstring=tam;
 }
 	
-FechaHistorica::FechaHistorica():anio(-1),sucesos(0),numsucesos(0),tamstring(0){}
+FechaHistorica::FechaHistorica():anio(-1),numsucesos(0),tamstring(0){sucesos=0;}
 
 FechaHistorica::FechaHistorica(int fecha, string *suc, int numsuc){
 	assert(fecha<=2018 && numsuc>0);
@@ -73,7 +74,7 @@ void FechaHistorica::addsuceso(string suc){
 	sucesos[numsucesos]=suc;
 	numsucesos++;
 }
-void FechaHistorica::addsucesos(string *suc, int n){
+void FechaHistorica::addsucesos(const string *suc, int n){
 	assert(n>0);
 	if(numsucesos+n>tamstring)
 		resize(numsucesos+n);    
@@ -84,31 +85,15 @@ void FechaHistorica::addsucesos(string *suc, int n){
 		
 		
 istream &operator>>(istream &is, FechaHistorica &f){
-	char s[500];
-	char aux[100];
-	string suc;
-	is.getline(s,5,'#');
-	f.anio=atoi(s);
-	is.getline(s,500,'\n');
-	int k=0;
-	int j=0;
-
-	while(s[j]!='\0'){
-		if(s[j]!='#'){
-			aux[k]=s[j];
-			k++;
-		}
-		else{
-			aux[k]='\0';
-			suc=aux;
-			f.addsuceso(suc);
-			k=0;
-		}
-		j++;
+	string aux;
+	
+	getline(is,aux,'#');
+	f.anio=stoi(aux);
+	
+	while(is.eof()!=true){
+		getline(is,aux,'#');
+		f.addsuceso(aux);
 	}
-	aux[k]='\0';
-	suc=aux;
-	f.addsuceso(suc);
 	return is;
 }
 		

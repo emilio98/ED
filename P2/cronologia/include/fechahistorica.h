@@ -7,12 +7,14 @@
 #include <cassert>
 using namespace std;
 class FechaHistorica{
-private:
+public:
 
-	int anio,numsucesos,tamstring;
+	int anio;
+	int numsucesos;
+	int tamstring;
 	string* sucesos;
 	void resize(int tam);
-public:
+
 
 FechaHistorica();
 
@@ -26,7 +28,7 @@ void setanio(int a);
 int getanio() const;
 int getnumsucesos()const;
 void addsuceso(string suc);
-void addsucesos(string *suc, int n);
+void addsucesos(const string *suc, int n);
 		
 FechaHistorica &operator=(const FechaHistorica &f);
 friend istream &operator>>(istream &is, FechaHistorica &f);

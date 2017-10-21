@@ -1,5 +1,5 @@
 #include"cronologia.h"
-
+#include<sstream>
 
 void Cronologia::release(){
 /*    for(int i=0; i>numFechas;i++)
@@ -63,10 +63,10 @@ bool Cronologia::add(const FechaHistorica &nueva){
     fechas[numFechas++] = nueva;
     return true;
 }
-void Cronologia::add(const FechaHistorica (&fechas)[],int numFechas){
+void Cronologia::add(const FechaHistorica *fechasn,int numFechas){
     assert(numFechas > 0);
     for(int i=0;i<numFechas;i++)
-        this->add(fechas[i]);
+        this->add(fechasn[i]);
 }
 int Cronologia::get(std::string suceso){
     // Falta por implementar metodos get de fecha_historica
@@ -76,15 +76,21 @@ std::string* get(int anio,int &numsucesos){
     return nullptr;
 }
 
-ofstream& operator<< (ofstream &os, const Cronologia &cr){
+ostream& operator<< (ostream &os, const Cronologia &cr){
     int i = 0;
     while ( i<cr.numFechas && os << cr.fechas[i])
         i++;
     return os;
 }
 ifstream& operator>> (ifstream &is, Cronologia &cr){
-    FechaHistorica fecha;
-    while( (is.eof() != true ) && (is >> fecha))
+    
+    string linea;
+    while( is.eof() != true ){
+    	getline(is,linea,'\n');
+	istringstream flujo(linea);
+	FechaHistorica fecha;
+	flujo >> fecha;
         cr.add(fecha);
+        }
     return is;
 }
