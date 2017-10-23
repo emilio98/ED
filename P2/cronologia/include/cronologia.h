@@ -8,7 +8,7 @@
 
 class Cronologia
 {
-public:
+private:
     int numFechas;
     int tamFechas;
     FechaHistorica *fechas;
@@ -17,7 +17,7 @@ public:
     void resize(int num);
     void release();
     FechaHistorica* buscar(int anio);
-
+public:
     Cronologia();
     Cronologia(FechaHistorica *fechas,int numFechas);
     Cronologia(const Cronologia &otro);

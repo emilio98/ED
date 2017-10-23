@@ -7,7 +7,7 @@
 #include <cassert>
 using namespace std;
 class FechaHistorica{
-public:
+private:
 
 	int anio;
 	int numsucesos;
@@ -15,7 +15,7 @@ public:
 	string* sucesos;
 	void resize(int tam);
 
-
+public:
 FechaHistorica();
 
 FechaHistorica(int fecha, string* suc, int numsuc);
