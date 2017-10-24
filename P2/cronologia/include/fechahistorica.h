@@ -17,17 +17,20 @@ private:
 
 public:
 FechaHistorica();
-
+FechaHistorica(int fecha);
 FechaHistorica(int fecha, string* suc, int numsuc);
-
 FechaHistorica(const FechaHistorica &f);
-
 ~FechaHistorica();
 
 void setanio(int a);
 int getanio() const;
 int getnumsucesos()const;
-void addsuceso(string suc);
+bool empty();
+string &operator[](int i);
+const string &operator[](int i) const;
+bool buscar(const string clave);
+FechaHistorica subdivision(const string clave);
+bool addsuceso(const string suc);
 void addsucesos(const string *suc, int n);
 		
 FechaHistorica &operator=(const FechaHistorica &f);
