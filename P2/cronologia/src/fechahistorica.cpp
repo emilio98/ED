@@ -17,7 +17,7 @@ void FechaHistorica::resize(int tam){
 }
 	
 FechaHistorica::FechaHistorica():anio(-1),numsucesos(0),tamstring(0){sucesos=0;}
-
+FechaHistorica::FechaHistorica(int fecha):anio(fecha),numsucesos(0),tamstring(0){sucesos=0;}
 FechaHistorica::FechaHistorica(int fecha, string *suc, int numsuc){
 	assert(fecha<=2018 && numsuc>0);
 	numsucesos=numsuc;
@@ -63,24 +63,71 @@ FechaHistorica &FechaHistorica::operator=(const FechaHistorica &f){
 }
 int FechaHistorica::getnumsucesos()const{return numsucesos;}
 
+bool FechaHistorica::empty(){
+	if(sucesos==0)
+		return true;
+	else
+		return false;
+}
+
+string &FechaHistorica::operator[](int i){
+	assert(!empty());
+	return sucesos[i];
+}
+
+const string &FechaHistorica::operator[](int i) const{
+	assert(sucesos!=0);
+	return sucesos[i];
+}
+
 void FechaHistorica::setanio(int a){
 	anio=a;
 }
 int FechaHistorica::getanio() const{return anio;}
 
-void FechaHistorica::addsuceso(string suc){
-	if(numsucesos==tamstring)
-		resize((tamstring*2)+1);    //el +1 es por si tamstring=0
-	sucesos[numsucesos]=suc;
-	numsucesos++;
+bool FechaHistorica::buscar(const string clave){
+	bool encontrado=false;
+	for(int i=0;i<numsucesos && !encontrado;i++){
+		if (sucesos[i].find(clave)!=string::npos)
+			encontrado=true;
+	}
+	return encontrado;	
+}
+
+FechaHistorica FechaHistorica::subdivision(const string clave){
+	if(buscar(clave)){
+		FechaHistorica fecha(anio);
+		for(int i=0;i<numsucesos;i++){
+			if (sucesos[i].find(clave)!=string::npos)
+				fecha.addsuceso(sucesos[i]);
+		}
+		return fecha;
+	}
+	else{
+		FechaHistorica f;
+		return f;
+	}
+}
+	
+bool FechaHistorica::addsuceso(const string suc){
+	if (!buscar(suc)){
+		if(numsucesos==tamstring)
+			resize((tamstring*2)+1);    //el +1 es por si tamstring=0
+		sucesos[numsucesos]=suc;
+		numsucesos++;
+		return true;
+	}
+	else
+		return false;
 }
 void FechaHistorica::addsucesos(const string *suc, int n){
-	assert(n>0);
-	if(numsucesos+n>tamstring)
-		resize(numsucesos+n);    
-	for(int i=0;i<n;i++)
-		sucesos[numsucesos+i]=suc[i];
-	numsucesos=numsucesos+n;
+	assert(n>0);    
+	int numaniadidos=0;
+	for(int i=0;i<n;i++){
+		if(addsuceso(suc[i]))
+			numaniadidos++;
+	}
+	numsucesos=numsucesos+numaniadidos;
 }		
 		
 		
