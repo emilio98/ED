@@ -85,12 +85,13 @@ ostream& operator<< (ostream &os, const Cronologia &cr){
 ifstream& operator>> (ifstream &is, Cronologia &cr){
     
     string linea;
+    getline(is,linea,'\n');
     while( is.eof() != true ){
-    	getline(is,linea,'\n');
 	istringstream flujo(linea);
 	FechaHistorica fecha;
 	flujo >> fecha;
         cr.add(fecha);
+        getline(is,linea,'\n');
         }
     return is;
 }
