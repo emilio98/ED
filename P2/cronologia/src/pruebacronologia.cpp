@@ -8,7 +8,7 @@ int main(int argc, char * argv[]){
 
 
 
-  if (argc!=2){
+  if (argc!=3){
       cout<<"Dime el nombre del fichero con la cronologia"<<endl;
       return 0;
    }
@@ -22,7 +22,6 @@ int main(int argc, char * argv[]){
    Cronologia mi_cronologia;
    f>>mi_cronologia; //Cargamos en memoria la cronología.
 
-   std::cout << "Hello" << std::endl;
 
    /* Exhibir aquí la funcionalidad programada para el TDA Cronologia / TDA FechaHistorica */ 
 
@@ -34,4 +33,24 @@ int main(int argc, char * argv[]){
    // - Cualquier otra funcionalidad que consideréis de interés
    cout << mi_cronologia ;
    f.close();
+   ofstream s (argv[2]);
+   if (!s){
+    cout<<"No puedo abrir el fichero de salida "<<argv[2]<<endl;
+    return 0;
+   }
+   s << mi_cronologia;
+   s.close();
+   ifstream w (argv[2]);
+   if (!w){
+    cout<<"No puedo abrir el fichero "<<argv[2]<<endl;
+    return 0;
+   }
+   FechaHistorica mifecha;
+   w >> mifecha;
+   w.close();
+   Cronologia mi_cronologia2;
+   w.open(argv[2]);
+   w >> mi_cronologia2;
+   cout << mi_cronologia2 << mifecha;
+   w.close();
 }
