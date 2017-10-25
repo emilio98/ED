@@ -1,3 +1,8 @@
+/**
+  * @file fechahistorica.cpp
+  * @brief Fichero fuente del TDA FechaHistorica
+  *
+  */
 #include "cronologia.h"
 #include <fstream>
 #include <iostream>

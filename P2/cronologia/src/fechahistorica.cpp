@@ -71,12 +71,12 @@ bool FechaHistorica::empty(){
 }
 
 string &FechaHistorica::operator[](int i){
-	assert(!empty());
+	assert(!empty() && i<numsucesos);
 	return sucesos[i];
 }
 
 const string &FechaHistorica::operator[](int i) const{
-	assert(sucesos!=0);
+	assert(sucesos!=0 && i<numsucesos);
 	return sucesos[i];
 }
 
@@ -94,23 +94,22 @@ bool FechaHistorica::buscar(const string clave){
 	return encontrado;	
 }
 
-FechaHistorica FechaHistorica::subdivision(const string clave){
-	if(buscar(clave)){
-		FechaHistorica fecha(anio);
-		for(int i=0;i<numsucesos;i++){
-			if (sucesos[i].find(clave)!=string::npos)
-				fecha.addsuceso(sucesos[i]);
-		}
-		return fecha;
+FechaHistorica FechaHistorica::subFechaHistorica(const string clave){
+	FechaHistorica fecha(anio);
+	for(int i=0;i<numsucesos;i++){
+		if (sucesos[i].find(clave)!=string::npos)
+			fecha.addsuceso(sucesos[i]);
 	}
-	else{
-		FechaHistorica f;
-		return f;
-	}
+	return fecha;
 }
 	
 bool FechaHistorica::addsuceso(const string suc){
-	if (!buscar(suc)){
+	bool esta=false;
+	for(int i=0;i<numsucesos && !esta;i++){
+		if (sucesos[i]==suc)
+			esta=true;
+	}
+	if (!esta){
 		if(numsucesos==tamstring)
 			resize((tamstring*2)+1);    //el +1 es por si tamstring=0
 		sucesos[numsucesos]=suc;
@@ -121,13 +120,9 @@ bool FechaHistorica::addsuceso(const string suc){
 		return false;
 }
 void FechaHistorica::addsucesos(const string *suc, int n){
-	assert(n>0);    
-	int numaniadidos=0;
 	for(int i=0;i<n;i++){
-		if(addsuceso(suc[i]))
-			numaniadidos++;
+		addsuceso(suc[i]);
 	}
-	numsucesos=numsucesos+numaniadidos;
 }		
 		
 		
