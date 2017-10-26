@@ -22,7 +22,8 @@ class FechaHistorica{
   * Un ejemplo de su uso:
   * @include pruebacronologia.cpp
   *
-  * @author Emilio José Hoyo Medina, Stefan Parvanov
+  * @author Emilio José Hoyo Medina 
+  * @author Stefan Parvanov
   * @date Octubre 2017
   */
 private:
