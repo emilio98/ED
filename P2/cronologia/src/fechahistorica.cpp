@@ -1,3 +1,8 @@
+/**
+  * @file fechahistorica.cpp
+  * @brief Fichero fuente del TDA FechaHistorica
+  *
+  */
 #include "fechahistorica.h"
 #include <sstream>
 using namespace std;
