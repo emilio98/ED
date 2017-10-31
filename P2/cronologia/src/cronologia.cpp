@@ -21,11 +21,11 @@ void Cronologia::resize(int tam){
     this->release();
     this->fechas = tmp;
 }
-FechaHistorica* Cronologia::buscar(int anio){
+int Cronologia::buscar(int anio){
     for(int i=0;i<numFechas;i++)
         if(fechas[i].getanio() == anio)
-            return (fechas+i);
-    return nullptr;
+            return i;
+    return -1;
 }
 
 Cronologia::Cronologia() : numFechas(0),tamFechas(0),fechas(nullptr) {}
@@ -58,10 +58,11 @@ Cronologia& Cronologia::operator=(const Cronologia &otro){
     return *this;
 }
 
-bool Cronologia::add(const FechaHistorica &nueva){
-    FechaHistorica *fecha = buscar(nueva.getanio());
-    if(fecha)
-        return false;
+void Cronologia::add(const FechaHistorica &nueva){
+    int index = buscar(nueva.getanio());
+    if(index!=-1)
+    	fechas[index]=fechas[index]+nueva;
+        
 /*
     int anio = nueva.getanio();
     int indice = numFechas;
@@ -72,10 +73,16 @@ bool Cronologia::add(const FechaHistorica &nueva){
     
 */
 
-    if(numFechas+1 > tamFechas)
-        resize(tamFechas*2+1);
-    fechas[numFechas++] = nueva;
-    return true;
+	else{
+		if(numFechas+1 > tamFechas)
+			resize(tamFechas*2+1);
+		for (int i=0;i<numFechas && index==-1;i++){
+			if(fechas[i].getanio()<nueva.getanio())
+				index=i;
+		}
+		
+		fechas[numFechas++] = nueva;
+	}
 }
 void Cronologia::add(const FechaHistorica *fechasn,int numFechas){
     assert(numFechas > 0);
