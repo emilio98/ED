@@ -107,6 +107,12 @@ string &operator[](int i);
   * @return String en la posición i del vector de sucesos por referencia constante
   */
 const string &operator[](int i) const;
+/** @brief Sobrecarga del operador+
+  * @param otra fecha histórica con la que se desea hacer la unión de sucesos 
+  * @pre otra tiene que ser una fecha histórica no vacía
+  * @return FechaHistorica que resulta de la unión de ambas
+  */
+FechaHistorica operator+(const FechaHistorica &otra);
 /** @brief Busqueda de un string clave en el conjunto de los sucesos
   * @param clave String a buscar 
   * @return Devuelve true si la cadena de caracteres clave está contenida en algún 
