@@ -33,24 +33,15 @@ int main(int argc, char * argv[]){
    // - Cualquier otra funcionalidad que consideréis de interés
    cout << mi_cronologia ;
    f.close();
-   ofstream s (argv[2]);
-   if (!s){
-    cout<<"No puedo abrir el fichero de salida "<<argv[2]<<endl;
-    return 0;
-   }
-   s << mi_cronologia;
-   s.close();
    ifstream w (argv[2]);
    if (!w){
     cout<<"No puedo abrir el fichero "<<argv[2]<<endl;
     return 0;
    }
-   FechaHistorica mifecha;
-   w >> mifecha;
-   w.close();
    Cronologia mi_cronologia2;
-   w.open(argv[2]);
-   w >> mi_cronologia2;
-   cout << mi_cronologia2 << mifecha;
+   w>>mi_cronologia2;
    w.close();
+   
+   cout << "\n\nUnión de ambas cronologías:\n\n";
+   cout << mi_cronologia+mi_cronologia2;
 }
