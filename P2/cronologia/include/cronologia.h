@@ -57,7 +57,7 @@ private:
  * @brief Funcion que busca si existe una fecha dado su año.
  * @return Devuelve la fecha si existe o un puntero nulo si no.
  **/
-    FechaHistorica* buscar(int anio);
+    int buscar(int anio);
 public:
 /**
  * @brief Constructor por defecto. Inicializa numFechas y tamFechas a 0,
@@ -86,7 +86,7 @@ public:
  * @brief Metodo que añade una fecha historica a la cronologia.
  * @param fecha La fecha que se desea añadir.
  **/
-    bool add(const FechaHistorica &fecha);
+    void add(const FechaHistorica &fecha);
 /**
  * @brief Metodo que añade un conjunto de fechas históricas.
  * @param fechas Fechas que se desean añadir.
@@ -157,7 +157,7 @@ public:
     friend ostream& operator<<(ostream &os, const Cronologia &cr);
 };
 
-ifstream& operator>>(ifstream &is,Cronologia &cr);
+istream& operator>>(istream &is,Cronologia &cr);
 ostream& operator<<(ostream &os,const Cronologia &cr);
 
 
