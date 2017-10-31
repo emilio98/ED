@@ -85,6 +85,13 @@ const string &FechaHistorica::operator[](int i) const{
 	return sucesos[i];
 }
 
+FechaHistorica FechaHistorica::operator+(const FechaHistorica &otra){
+    FechaHistorica temp(anio);
+    temp.addsucesos(this->sucesos,this->numsucesos);
+    temp.addsucesos(otra.sucesos,otra.numsucesos);
+    return temp;
+}
+
 void FechaHistorica::setanio(int a){
 	anio=a;
 }
