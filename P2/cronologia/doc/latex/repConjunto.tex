@@ -1,0 +1,78 @@
+T.\+D.\+A. \hyperlink{classFechaHistorica}{Fecha\+Historica}
+
+Una instancia {\itshape c} del tipo de dato abstracto {\ttfamily \hyperlink{classFechaHistorica}{Fecha\+Historica}} es un objeto del conjunto de los acontecimientos históricos en una fecha, compuestos por un valor entero que representa el año y un conjunto de cadenas de caracteres (strings) que representan los acontecimientos acaecidos ese año. Un ejemplo de su uso\+: 
+\begin{DoxyCodeInclude}
+
+\textcolor{preprocessor}{#include "cronologia.h"}
+\textcolor{preprocessor}{#include <fstream>}
+\textcolor{preprocessor}{#include <iostream>}
+
+\textcolor{keyword}{using namespace }\hyperlink{namespacestd}{std};
+
+\textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} * argv[])\{
+
+
+
+  \textcolor{keywordflow}{if} (argc!=3)\{
+      cout<<\textcolor{stringliteral}{"Dime el nombre del fichero con la cronologia"}<<endl;
+      \textcolor{keywordflow}{return} 0;
+   \}
+
+   ifstream f (argv[1]);
+   \textcolor{keywordflow}{if} (!f)\{
+    cout<<\textcolor{stringliteral}{"No puedo abrir el fichero "}<<argv[1]<<endl;
+    \textcolor{keywordflow}{return} 0;
+   \}
+   
+   Cronologia mi\_cronologia;
+   f>>mi\_cronologia; \textcolor{comment}{//Cargamos en memoria la cronología.}
+
+
+   \textcolor{comment}{/* Exhibir aquí la funcionalidad programada para el TDA Cronologia / TDA FechaHistorica */} 
+
+   \textcolor{comment}{// Algunas sugerencias: }
+   \textcolor{comment}{// - Obtener los eventos acaecidos en un año dado}
+   \textcolor{comment}{// - Obtener la (sub)cronología de eventos históricos acaecidos en [anioDesde, anioHasta], donde
+       anioDesde y anioHasta son proporcionados por el usuario}
+   \textcolor{comment}{// - Obtener la (sub)cronología de eventos históricos asociados a una palabra clave. Ejemplo: la
+       cronología de eventos asociados a "Einstein"}
+   \textcolor{comment}{// - Operadores sobre cronologías, ejemplo: Unión de dos cronologías (la cronología resultante debería
+       estar ordenada)}
+   \textcolor{comment}{// - Cualquier otra funcionalidad que consideréis de interés}
+   cout << mi\_cronologia ;
+   f.close();
+   ofstream s (argv[2]);
+   \textcolor{keywordflow}{if} (!s)\{
+    cout<<\textcolor{stringliteral}{"No puedo abrir el fichero de salida "}<<argv[2]<<endl;
+    \textcolor{keywordflow}{return} 0;
+   \}
+   s << mi\_cronologia;
+   s.close();
+   ifstream w (argv[2]);
+   \textcolor{keywordflow}{if} (!w)\{
+    cout<<\textcolor{stringliteral}{"No puedo abrir el fichero "}<<argv[2]<<endl;
+    \textcolor{keywordflow}{return} 0;
+   \}
+   \hyperlink{classFechaHistorica}{FechaHistorica} mifecha;
+   w >> mifecha;
+   w.close();
+   Cronologia mi\_cronologia2;
+   w.open(argv[2]);
+   w >> mi\_cronologia2;
+   cout << mi\_cronologia2 << mifecha;
+   w.close();
+\}
+\end{DoxyCodeInclude}
+
+
+\begin{DoxyAuthor}{Autor}
+Emilio José Hoyo Medina 
+
+Stefan Parvanov 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Fecha}
+Octubre 2017
+\end{DoxyDate}
+\hypertarget{repConjunto_invConjunto}{}\section{Invariante de la representación}\label{repConjunto_invConjunto}
+El invariante es {\itshape rep.\+año$<$=2018} rep.\+numsucesos$>$=0 rep.\+tamstring$>$=0\hypertarget{repConjunto_faConjunto}{}\section{Función de abstracción}\label{repConjunto_faConjunto}
+Un objeto válido {\itshape rep} del T\+DA \hyperlink{classFechaHistorica}{Fecha\+Historica} representa a un conjunto de sucesos históricos de cardinal rep.\+numsucesos (almacenados en el vector dinámico de strings rep.\+sucesos, de tamaño rep.\+tamstring) y acaecidos en el año rep.\+anio. 

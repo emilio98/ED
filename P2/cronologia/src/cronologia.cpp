@@ -58,6 +58,16 @@ bool Cronologia::add(const FechaHistorica &nueva){
     FechaHistorica *fecha = buscar(nueva.getanio());
     if(fecha)
         return false;
+/*
+    int anio = nueva.getanio();
+    int indice = numFechas;
+
+    for(int i=0;i<numFechas;i++)
+        if(fechas[i].getanio() < anio)
+            indice = i;
+    
+*/
+
     if(numFechas+1 > tamFechas)
         resize(tamFechas*2+1);
     fechas[numFechas++] = nueva;
@@ -68,13 +78,7 @@ void Cronologia::add(const FechaHistorica *fechasn,int numFechas){
     for(int i=0;i<numFechas;i++)
         this->add(fechasn[i]);
 }
-int Cronologia::get(std::string suceso){
-    // Falta por implementar metodos get de fecha_historica
-    return -1;
-}
-std::string* get(int anio,int &numsucesos){
-    return nullptr;
-}
+
 
 ostream& operator<< (ostream &os, const Cronologia &cr){
     int i = 0;
@@ -94,4 +98,36 @@ ifstream& operator>> (ifstream &is, Cronologia &cr){
         getline(is,linea,'\n');
         }
     return is;
+}
+
+FechaHistorica& Cronologia::operator[](int index){
+    assert(index<numFechas);
+    return fechas[index];
+}
+Cronologia Cronologia::operator+(const Cronologia &otro){
+    Cronologia temp;
+    temp.add(this->fechas,this->numFechas);
+    temp.add(otro.fechas,otro.numFechas);
+    return temp;
+}
+int Cronologia::length(){
+    return numFechas;
+}
+Cronologia Cronologia::get(int an_i,int an_f){
+    assert(an_f>= an_i && an_i>0);
+    int index_i = numFechas;
+    int index_f = numFechas;
+    for(int i=0;i<numFechas;i++){
+        if(fechas[i].getanio() < an_i )
+            index_i = i;
+        if(fechas[i].getanio() < an_f)
+            index_f = i;
+    }
+    if(index_i <= index_f && index_i < numFechas && index_f < numFechas){
+        Cronologia temp(fechas+index_i,index_f-index_i+1);
+        return temp;
+    }else{
+        Cronologia temp;
+        return temp;
+    }    
 }

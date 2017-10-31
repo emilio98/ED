@@ -1,0 +1,63 @@
+\hypertarget{fechahistorica_8h}{}\section{Referencia del Archivo include/fechahistorica.h}
+\label{fechahistorica_8h}\index{include/fechahistorica.\+h@{include/fechahistorica.\+h}}
+
+
+Fichero cabecera del T\+DA \hyperlink{classFechaHistorica}{Fecha\+Historica}.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$cstring$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$cassert$>$}\newline
+\subsection*{Clases}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classFechaHistorica}{Fecha\+Historica}
+\end{DoxyCompactItemize}
+\subsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+istream \& \hyperlink{fechahistorica_8h_a25a93d162aadd3c52aa1f3d1831e3d75}{operator$>$$>$} (istream \&is, \hyperlink{classFechaHistorica}{Fecha\+Historica} \&f)
+\item 
+ostream \& \hyperlink{fechahistorica_8h_a5d5e8ff6e1e1f5fe49529f665e2fe5c7}{operator$<$$<$} (ostream \&o, const \hyperlink{classFechaHistorica}{Fecha\+Historica} \&f)
+\end{DoxyCompactItemize}
+
+
+\subsection{Descripción detallada}
+Fichero cabecera del T\+DA \hyperlink{classFechaHistorica}{Fecha\+Historica}. 
+
+
+
+\subsection{Documentación de las funciones}
+\mbox{\Hypertarget{fechahistorica_8h_a5d5e8ff6e1e1f5fe49529f665e2fe5c7}\label{fechahistorica_8h_a5d5e8ff6e1e1f5fe49529f665e2fe5c7}} 
+\index{fechahistorica.\+h@{fechahistorica.\+h}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!fechahistorica.\+h@{fechahistorica.\+h}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{ostream \&}]{o,  }\item[{const \hyperlink{classFechaHistorica}{Fecha\+Historica} \&}]{f }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parámetros}
+{\em o} & stream de salida \\
+\hline
+{\em f} & Fecha\+Histórica a escribir \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPostcond}{Postcondición}
+Se obtiene en o la cadena con el formato\+: año\#suceso1\#suceso2\#...\#sucesoN donde N=numsucesos 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{fechahistorica_8h_a25a93d162aadd3c52aa1f3d1831e3d75}\label{fechahistorica_8h_a25a93d162aadd3c52aa1f3d1831e3d75}} 
+\index{fechahistorica.\+h@{fechahistorica.\+h}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!fechahistorica.\+h@{fechahistorica.\+h}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}}
+{\footnotesize\ttfamily istream\& operator$>$$>$ (\begin{DoxyParamCaption}\item[{istream \&}]{is,  }\item[{\hyperlink{classFechaHistorica}{Fecha\+Historica} \&}]{f }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parámetros}
+{\em is} & stream de salida \\
+\hline
+{\em f} & Fecha\+Histórica a leer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Precondición}
+La \hyperlink{classFechaHistorica}{Fecha\+Historica} en is tendrá el formato\+: año\#suceso1\#suceso2\#...\#sucesoN 
+\end{DoxyPrecond}
