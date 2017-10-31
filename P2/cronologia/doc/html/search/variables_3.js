@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tamstring',['tamstring',['../classFechaHistorica.html#aec4c1897c2fbc123365211ca065783a0',1,'FechaHistorica']]]
+  ['sucesos',['sucesos',['../classFechaHistorica.html#a31f925ce9ed8b6d420480295724965a8',1,'FechaHistorica']]]
 ];

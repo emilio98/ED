@@ -1,3 +1,7 @@
+/**
+ * @file cronologia.cpp
+ * @brief Fichero fuente del TDA Cronologia
+ * */
 #include"cronologia.h"
 #include<sstream>
 
@@ -86,7 +90,7 @@ ostream& operator<< (ostream &os, const Cronologia &cr){
         i++;
     return os;
 }
-ifstream& operator>> (ifstream &is, Cronologia &cr){
+istream& operator>> (istream &is, Cronologia &cr){
     
     string linea;
     getline(is,linea,'\n');

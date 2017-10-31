@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['resize',['resize',['../classFechaHistorica.html#a87e1ed09c8b726f325b544459a9c9ef9',1,'FechaHistorica']]]
+  ['length',['length',['../classCronologia.html#ab68fe5887c2d326752750f2bba998767',1,'Cronologia']]]
 ];

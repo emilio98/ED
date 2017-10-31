@@ -1,5 +1,5 @@
 /**
- * @file cronologia.cpp
+ * @file cronologia.h
  * @brief Fichero cabecera del TDA Cronologia
  * */
 #pragma once
@@ -20,7 +20,7 @@ class Cronologia
   * representa el numero de fechas, otro que representa el tamaño del vector 
   * dinamico utilizado y el vector dinamico de fechas.
   * Un ejemplo de su uso:
-  * @include cronologia.cpp
+  * @include pruebacronologia.cpp
   *
   * @author Emilio José Hoyo Medina 
   * @author Stefan Parvanov
@@ -28,13 +28,17 @@ class Cronologia
   */
 private:
 /**
- * @page repConjunto Rep del TDA Cronologia.
- * @section faConjunto Funcion de abstraccion
- * 
- * Un objeto valido @e rep del TDA Cronologia representa a un conjunto 
- * de fechas historicas de cardinal rep.numFechas( almacenadas en el 
- * vector dinamico rep.fechas de tamaño rep.tamFechas).
- * */
+  * @page  repBConjunto Rep del TDA Cronologia
+  *
+  * @section invConjunto Invariante de la representación
+  * El invariante es \e rep.numFechas>=0   rep.tamFechas>=0
+  *
+  * @section faConjunto Funcion de abstraccion
+  * 
+  * Un objeto valido @e rep del TDA Cronologia representa a un conjunto 
+  * de fechas historicas de cardinal rep.numFechas( almacenadas en el 
+  * vector dinamico rep.fechas de tamaño rep.tamFechas).
+  * */
     int numFechas;          /**< numero de fechas **/
     int tamFechas;          /**< tamaño del vector fechas **/
     FechaHistorica *fechas; /**< vector dinamico de fechas **/
@@ -51,7 +55,7 @@ private:
     void release();
 /**
  * @brief Funcion que busca si existe una fecha dado su año.
- * @return Devuelve la fecha si existe o una fecha vacia si no.
+ * @return Devuelve la fecha si existe o un puntero nulo si no.
  **/
     FechaHistorica* buscar(int anio);
 public:
@@ -63,6 +67,7 @@ public:
 /**
  * @brief Constructor de la clase
  * @param fechas vector de fechas historicas
+ * @param numFechas número de fechas históricas contenidas en fechas
  * @pre las fechas han de estar ordenadas.
  * */
     Cronologia(FechaHistorica *fechas,int numFechas);
@@ -83,19 +88,17 @@ public:
  **/
     bool add(const FechaHistorica &fecha);
 /**
- * @brief Metodo que añade un conjunto de fechas histroicas.
+ * @brief Metodo que añade un conjunto de fechas históricas.
  * @param fechas Fechas que se desean añadir.
- * @pre Ha de ser un vector no nulo.
  * @param numFechas Numero de fechas en el vector.
- * @pre Ha de ser un valor positivo.
+ * @pre fechas ha de ser un vector no nulo y numfechas ha de ser un valor positivo.
  * */
     void add(const FechaHistorica *fechas,int numFechas);
 /**
  * @brief Metodo get que devuelve una subcronologia.
  * @param an_i Año inicial de la subcronologia.
- * @pre Ha de ser un valor positivo y menor que numFechas
  * @param an_f Año final de la subcronologia.
- * @pre Ha de ser mayor que an_i y menor que numFechas
+ * @pre an_i ha de ser un valor positivo y an_f ha de ser mayor o igual que an_i 
  * @return Devuelve la subcronologia.
  * */
     Cronologia get(int an_i,int an_f);
@@ -133,17 +136,25 @@ public:
  * */
     Cronologia operator+(const Cronologia &otro);
 /**
- * @brief Operador de entrada de stream.
- * @param is ifstream de entrada
- * @param f cronologia de entrada
- * */
-    friend ifstream& operator>>(ifstream &is, Cronologia &f);
-/** 
- * @brief Operador de salida de stream.
- * @param os Ofstream de salida.
- * @param f Cronologia de salida.
- * */
-    friend ostream& operator<<(ostream &os, const Cronologia &f);
+  * @brief Entrada de una cronología desde istream
+  * @param is stream de entrada
+  * @param cr Cronologia a leer
+  * @pre La Cronología en is tendrá el formato:
+  *  año1\#suceso1\#suceso2\#...\#sucesoN
+  *  año2\#suceso1\#suceso2\#...\#sucesoN
+  *  ...
+  */
+    friend istream& operator>>(istream &is, Cronologia &cr);
+/**
+  * @brief Salida de una cronología a ostream
+  * @param os stream de salida
+  * @param cr Cronologia a escribir
+  * @post Se obtiene en os la cadena con el formato:
+  *  año1\#suceso1\#suceso2\#...\#sucesoN
+  *  año2\#suceso1\#suceso2\#...\#sucesoN
+  *  ...
+  */
+    friend ostream& operator<<(ostream &os, const Cronologia &cr);
 };
 
 ifstream& operator>>(ifstream &is,Cronologia &cr);

@@ -19,16 +19,13 @@ class FechaHistorica{
   * del conjunto de los acontecimientos históricos en una fecha, compuestos por 
   * un valor entero que representa el año y un conjunto de cadenas de caracteres
   * (strings) que representan los acontecimientos acaecidos ese año.
-  * Un ejemplo de su uso:
-  * @include pruebacronologia.cpp
-  *
   * @author Emilio José Hoyo Medina 
   * @author Stefan Parvanov
   * @date Octubre 2017
   */
 private:
 /**
-  * @page repConjunto Rep del TDA FechaHistorica
+  * @page repAConjunto Rep del TDA FechaHistorica
   *
   * @section invConjunto Invariante de la representación
   *
@@ -143,7 +140,7 @@ void addsucesos(const string *suc, int n);
 FechaHistorica &operator=(const FechaHistorica &f);
 /**
   * @brief Entrada de una fecha histórica desde istream
-  * @param is stream de salida
+  * @param is stream de entrada
   * @param f FechaHistórica a leer
   * @pre La FechaHistorica en is tendrá el formato:
   *  año\#suceso1\#suceso2\#...\#sucesoN

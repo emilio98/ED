@@ -1,0 +1,56 @@
+\hypertarget{cronologia_8cpp}{}\section{Referencia del Archivo src/cronologia.cpp}
+\label{cronologia_8cpp}\index{src/cronologia.\+cpp@{src/cronologia.\+cpp}}
+
+
+Fichero fuente del T\+DA \hyperlink{classCronologia}{Cronologia}.  
+
+
+{\ttfamily \#include \char`\"{}cronologia.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+\subsection*{Funciones}
+\begin{DoxyCompactItemize}
+\item 
+ostream \& \hyperlink{cronologia_8cpp_ae4e05c9547fb694b0413f46f8d5542a9}{operator$<$$<$} (ostream \&os, const \hyperlink{classCronologia}{Cronologia} \&cr)
+\item 
+istream \& \hyperlink{cronologia_8cpp_a3436f2476c2b5845bc88dfbe6d81b8cd}{operator$>$$>$} (istream \&is, \hyperlink{classCronologia}{Cronologia} \&cr)
+\end{DoxyCompactItemize}
+
+
+\subsection{Descripción detallada}
+Fichero fuente del T\+DA \hyperlink{classCronologia}{Cronologia}. 
+
+
+
+\subsection{Documentación de las funciones}
+\mbox{\Hypertarget{cronologia_8cpp_ae4e05c9547fb694b0413f46f8d5542a9}\label{cronologia_8cpp_ae4e05c9547fb694b0413f46f8d5542a9}} 
+\index{cronologia.\+cpp@{cronologia.\+cpp}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!cronologia.\+cpp@{cronologia.\+cpp}}
+\subsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{ostream \&}]{os,  }\item[{const \hyperlink{classCronologia}{Cronologia} \&}]{cr }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parámetros}
+{\em os} & stream de salida \\
+\hline
+{\em cr} & \hyperlink{classCronologia}{Cronologia} a escribir \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPostcond}{Postcondición}
+Se obtiene en os la cadena con el formato\+: año1\#suceso1\#suceso2\#...\#sucesoN año2\#suceso1\#suceso2\#...\#sucesoN ... 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{cronologia_8cpp_a3436f2476c2b5845bc88dfbe6d81b8cd}\label{cronologia_8cpp_a3436f2476c2b5845bc88dfbe6d81b8cd}} 
+\index{cronologia.\+cpp@{cronologia.\+cpp}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!cronologia.\+cpp@{cronologia.\+cpp}}
+\subsubsection{\texorpdfstring{operator$>$$>$()}{operator>>()}}
+{\footnotesize\ttfamily istream\& operator$>$$>$ (\begin{DoxyParamCaption}\item[{istream \&}]{is,  }\item[{\hyperlink{classCronologia}{Cronologia} \&}]{cr }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parámetros}
+{\em is} & stream de entrada \\
+\hline
+{\em cr} & \hyperlink{classCronologia}{Cronologia} a leer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Precondición}
+La Cronología en is tendrá el formato\+: año1\#suceso1\#suceso2\#...\#sucesoN año2\#suceso1\#suceso2\#...\#sucesoN ... 
+\end{DoxyPrecond}

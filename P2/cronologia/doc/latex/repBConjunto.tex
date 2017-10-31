@@ -1,9 +1,8 @@
-T.\+D.\+A. \hyperlink{classFechaHistorica}{Fecha\+Historica}
+T.\+D.\+A. \hyperlink{classCronologia}{Cronologia}
 
-Una instancia {\itshape c} del tipo de dato abstracto {\ttfamily \hyperlink{classFechaHistorica}{Fecha\+Historica}} es un objeto del conjunto de los acontecimientos históricos en una fecha, compuestos por un valor entero que representa el año y un conjunto de cadenas de caracteres (strings) que representan los acontecimientos acaecidos ese año. Un ejemplo de su uso\+: 
+Una instancia {\itshape c} del tipo de dato abstracto {\ttfamily \hyperlink{classCronologia}{Cronologia}} es un objeto del conjunto de fechas históricas compuestos por un valor entero que representa el numero de fechas, otro que representa el tamaño del vector dinamico utilizado y el vector dinamico de fechas. Un ejemplo de su uso\+: 
 \begin{DoxyCodeInclude}
-
-\textcolor{preprocessor}{#include "cronologia.h"}
+\textcolor{preprocessor}{#include "\hyperlink{cronologia_8h}{cronologia.h}"}
 \textcolor{preprocessor}{#include <fstream>}
 \textcolor{preprocessor}{#include <iostream>}
 
@@ -24,7 +23,7 @@ Una instancia {\itshape c} del tipo de dato abstracto {\ttfamily \hyperlink{clas
     \textcolor{keywordflow}{return} 0;
    \}
    
-   Cronologia mi\_cronologia;
+   \hyperlink{classCronologia}{Cronologia} mi\_cronologia;
    f>>mi\_cronologia; \textcolor{comment}{//Cargamos en memoria la cronología.}
 
 
@@ -56,7 +55,7 @@ Una instancia {\itshape c} del tipo de dato abstracto {\ttfamily \hyperlink{clas
    \hyperlink{classFechaHistorica}{FechaHistorica} mifecha;
    w >> mifecha;
    w.close();
-   Cronologia mi\_cronologia2;
+   \hyperlink{classCronologia}{Cronologia} mi\_cronologia2;
    w.open(argv[2]);
    w >> mi\_cronologia2;
    cout << mi\_cronologia2 << mifecha;
@@ -73,6 +72,6 @@ Stefan Parvanov
 \begin{DoxyDate}{Fecha}
 Octubre 2017
 \end{DoxyDate}
-\hypertarget{repConjunto_invConjunto}{}\section{Invariante de la representación}\label{repConjunto_invConjunto}
-El invariante es {\itshape rep.\+año$<$=2018} rep.\+numsucesos$>$=0 rep.\+tamstring$>$=0\hypertarget{repConjunto_faConjunto}{}\section{Función de abstracción}\label{repConjunto_faConjunto}
-Un objeto válido {\itshape rep} del T\+DA \hyperlink{classFechaHistorica}{Fecha\+Historica} representa a un conjunto de sucesos históricos de cardinal rep.\+numsucesos (almacenados en el vector dinámico de strings rep.\+sucesos, de tamaño rep.\+tamstring) y acaecidos en el año rep.\+anio. 
+\hypertarget{repBConjunto_invConjunto}{}\section{Invariante de la representación}\label{repBConjunto_invConjunto}
+El invariante es {\itshape rep.\+num\+Fechas$>$=0} rep.\+tam\+Fechas$>$=0\hypertarget{repBConjunto_faConjunto}{}\section{Función de abstracción}\label{repBConjunto_faConjunto}
+Un objeto valido {\itshape rep} del T\+DA \hyperlink{classCronologia}{Cronologia} representa a un conjunto de fechas historicas de cardinal rep.\+num\+Fechas( almacenadas en el vector dinamico rep.\+fechas de tamaño rep.\+tam\+Fechas). 

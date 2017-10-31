@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['fechahistorica_2ecpp',['fechahistorica.cpp',['../fechahistorica_8cpp.html',1,'']]],
-  ['fechahistorica_2eh',['fechahistorica.h',['../fechahistorica_8h.html',1,'']]]
+  ['cronologia_2ecpp',['cronologia.cpp',['../cronologia_8cpp.html',1,'']]],
+  ['cronologia_2eh',['cronologia.h',['../cronologia_8h.html',1,'']]]
 ];

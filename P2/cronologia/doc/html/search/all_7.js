@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['rep_20del_20tda_20fechahistorica',['Rep del TDA FechaHistorica',['../repConjunto.html',1,'']]],
-  ['resize',['resize',['../classFechaHistorica.html#a87e1ed09c8b726f325b544459a9c9ef9',1,'FechaHistorica']]]
+  ['numfechas',['numFechas',['../classCronologia.html#a26810731cb188a3a026586a248225496',1,'Cronologia']]],
+  ['numsucesos',['numsucesos',['../classFechaHistorica.html#a92979fbdc8d9575f18092759f4f192cb',1,'FechaHistorica']]]
 ];
